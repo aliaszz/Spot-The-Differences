@@ -1,13 +1,11 @@
-{
-  "name": "图片对比",
-  "version": "0.0.1",
+{  
+  "name": "Spot The Differences",
+  "version": "1.0",
   "manifest_version": 2,
-  "description": "对比两张图片,找出不同的地方.",
-  "browser_action": {
-    "default_icon": "icon.png",
+  "description": "Spot The Differences.",
+  "browser_action": {  
+    "default_icon": "icon.png" ,
+    "default_title": "",
     "default_popup": "popup.html"
-  },
-  "permissions": [
-    "http://api.flickr.com/"
-  ]
-}
+  }  
+} 

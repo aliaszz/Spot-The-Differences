@@ -15,8 +15,27 @@
         $addItemInput:$('addItemInput'),
         $txtTaskTitle:$('txtTaskTitle'),
         $taskItemList:$('taskItemList'),
+        //指针
+        index:window.localStorage.getItem('Tasks:index'),
         //初始化
         init:function(){
+            if(!Tasks.index){
+                window.localStorage.setItem('Taskx:index',Tasks.index=0);
+            }
+            //初始化数据
+            if(window.localStorage.length-1){
+                var task_list=[];
+                var key;
+                for(var i= 0,len=window.localStorage.length;i<len;i++){
+                    key=window.localStorage.key(i);
+                    if(/task:\d+/.test(key)){
+                        task_list.push(JSON.parse(window.localStorage.getItem(key)));
+                    }
+                }
+                for(var i= 0,len=task_list.length;i<len;i++){
+                    Tasks.AppendHtml(task_list[i]);
+                }
+            }
             /*注册事件*/
             //打开添加文本框
             Tasks.$addItemDiv.addEventListener('click',function(){
@@ -43,15 +62,18 @@
         },
         //增加
         Add:function(){
-            //TODO
+            //更新指针
+            window.localStorage.setItem('Tasks:index',++Tasks.index);
+            task.id=Tasks.index;
+            window.localStorage.setItem("task:"+ Tasks.index,JSON.stringify(task));
         },
         //修改
         Edit:function(){
-            //TODO
+            window.localStorage.setItem("task:"+ task.id,JSON.stringify(task));
         },
         //删除
         Del:function(){
-            //TODO
+            window.localStorage.removeItem("task:"+task.id);
         },
         AppendHtml:function(title){
             var oDiv=document.createElement('div');
